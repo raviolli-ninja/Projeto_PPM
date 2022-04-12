@@ -140,30 +140,20 @@ class Main extends Application {
     stage.show
 
     //T1
-    val graphicalModels = List[(String, Color, Int, Int, Int, Float, Float, Float)]()
+    //var graphicalModels = List[(String, Color, Int, Int, Int, Float, Float, Float)]()
+    //val graphicalModels = List[String]()
 
     def readFromFileToList (file: String) = {
       val bufferedSource = Source.fromFile(file)
       for (line <- bufferedSource.getLines){
-        line.toUpperCase.toList::graphicalModels
+
+        print(line.toUpperCase.split(" ").toList)
+
       }
       bufferedSource.close
-      print(graphicalModels)
     }
 
     readFromFileToList("C:/Users/Paulo Araújo/IdeaProjects/Base_Project2Share/src/graphical_model.txt")
-
-    /*
-    PARA APAGAR
-    val cylinder1 = new Cylinder(0.5, 1, 10)
-    cylinder1.setTranslateX(2)
-    cylinder1.setTranslateY(2)
-    cylinder1.setTranslateZ(2)
-    cylinder1.setScaleX(2)
-    cylinder1.setScaleY(2)
-    cylinder1.setScaleZ(2)
-    cylinder1.setMaterial(greenMaterial)
-     */
 
 /*
     //oct1 - example of an Octree[Placement] that contains only one Node (i.e. cylinder1)
