@@ -9,6 +9,7 @@ import javafx.geometry.Pos
 import javafx.scene.layout.StackPane
 import javafx.scene.paint.Color
 import javafx.scene.{PerspectiveCamera, Scene, SceneAntialiasing, SubScene}
+import scala.io.Source
 
 class Main extends Application {
 
@@ -80,6 +81,8 @@ class Main extends Application {
     box1.setTranslateZ(5)
     box1.setMaterial(greenMaterial)
 
+
+
     // 3D objects (group of nodes - javafx.scene.Node) that will be provide to the subScene
     val worldRoot:Group = new Group(wiredBox, camVolume, lineX, lineY, lineZ, cylinder1, box1)
 
@@ -136,6 +139,32 @@ class Main extends Application {
     stage.setScene(scene)
     stage.show
 
+    //T1
+    val graphicalModels = List[(String, Color, Int, Int, Int, Float, Float, Float)]()
+
+    def readFromFileToList (file: String) = {
+      val bufferedSource = Source.fromFile(file)
+      for (line <- bufferedSource.getLines){
+        line.toUpperCase.toList::graphicalModels
+      }
+      bufferedSource.close
+      print(graphicalModels)
+    }
+
+    readFromFileToList("C:/Users/Paulo Araújo/IdeaProjects/Base_Project2Share/src/graphical_model.txt")
+
+    /*
+    PARA APAGAR
+    val cylinder1 = new Cylinder(0.5, 1, 10)
+    cylinder1.setTranslateX(2)
+    cylinder1.setTranslateY(2)
+    cylinder1.setTranslateZ(2)
+    cylinder1.setScaleX(2)
+    cylinder1.setScaleY(2)
+    cylinder1.setScaleZ(2)
+    cylinder1.setMaterial(greenMaterial)
+     */
+
 /*
     //oct1 - example of an Octree[Placement] that contains only one Node (i.e. cylinder1)
     //In case of difficulties to implement task T2 this octree can be used as input for tasks T3, T4 and T5
@@ -182,6 +211,7 @@ object FxApp {
 
   def main(args: Array[String]): Unit = {
     Application.launch(classOf[Main], args: _*)
+
   }
 }
 
