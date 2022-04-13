@@ -140,17 +140,36 @@ class Main extends Application {
     stage.show
 
     //T1
-    //var graphicalModels = List[(String, Color, Int, Int, Int, Float, Float, Float)]()
+    val graphicalModels = List[(String, Color, Int, Int, Int, Float, Float, Float)]()
     //val graphicalModels = List[String]()
 
     def readFromFileToList (file: String) = {
       val bufferedSource = Source.fromFile(file)
       for (line <- bufferedSource.getLines){
 
-        print(line.toUpperCase.split(" ").toList)
+        val str = line.toUpperCase.split(" ")
+        str(0) match {
+          case "CYLINDER" =>
+            val cylinder2 = new Cylinder(0.5, 1, 10)
+            cylinder1.setTranslateX(str(2).toInt)
+            cylinder1.setTranslateY(str(3).toInt)
+            cylinder1.setTranslateZ(str(4).toInt)
+            cylinder1.setScaleX(str(5).toFloat)
+            cylinder1.setScaleY(str(6).toFloat)
+            cylinder1.setScaleZ(str(7).toFloat)
+            cylinder1.setMaterial(greenMaterial)
+          case "BOX" =>
+            val b2 = new Box(1,1,1)
+            b2.setTranslateX(str(2).toInt)
+            b2.setTranslateY(str(3).toInt)
+            b2.setTranslateZ(str(4).toInt)
+            b2.setMaterial(redMaterial)
+
+        }
 
       }
       bufferedSource.close
+      println(graphicalModels)
     }
 
     readFromFileToList("C:/Users/Paulo Araújo/IdeaProjects/Base_Project2Share/src/graphical_model.txt")
