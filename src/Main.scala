@@ -117,6 +117,8 @@ class Main extends Application {
     cameraView.getCamera.setTranslateZ(-50)
     cameraView.startViewing
 
+
+
       // Position of the CameraView: Right-bottom corner
       StackPane.setAlignment(cameraView, Pos.BOTTOM_RIGHT)
       StackPane.setMargin(cameraView, new Insets(5))
@@ -134,6 +136,7 @@ class Main extends Application {
       worldRoot.getChildren.removeAll()
     })
 
+
     //setup and start the Stage
     stage.setTitle("PPM Project 21/22")
     stage.setScene(scene)
@@ -142,39 +145,35 @@ class Main extends Application {
     //T1
     val graphicalModels = List[(String, Color, Int, Int, Int, Float, Float, Float)]()
     //val graphicalModels = List[String]()
+    val cylinder2 = new Cylinder(0.5, 1, 10)
 
     def readFromFileToList (file: String) = {
       val bufferedSource = Source.fromFile(file)
       for (line <- bufferedSource.getLines){
-
         val str = line.toUpperCase.split(" ")
         str(0) match {
           case "CYLINDER" =>
-            val cylinder2 = new Cylinder(0.5, 1, 10)
-            cylinder1.setTranslateX(str(2).toInt)
-            cylinder1.setTranslateY(str(3).toInt)
-            cylinder1.setTranslateZ(str(4).toInt)
-            cylinder1.setScaleX(str(5).toFloat)
-            cylinder1.setScaleY(str(6).toFloat)
-            cylinder1.setScaleZ(str(7).toFloat)
-            cylinder1.setMaterial(greenMaterial)
+            cylinder2.setTranslateX(str(2).toInt)
+            cylinder2.setTranslateY(str(3).toInt)
+            cylinder2.setTranslateZ(str(4).toInt)
+            cylinder2.setScaleX(str(5).toFloat)
+            cylinder2.setScaleY(str(6).toFloat)
+            cylinder2.setScaleZ(str(7).toFloat)
+            cylinder2.setMaterial(redMaterial)
           case "BOX" =>
             val b2 = new Box(1,1,1)
             b2.setTranslateX(str(2).toInt)
             b2.setTranslateY(str(3).toInt)
             b2.setTranslateZ(str(4).toInt)
             b2.setMaterial(redMaterial)
-
         }
-
       }
       bufferedSource.close
-      println(graphicalModels)
     }
 
     readFromFileToList("C:/Users/Paulo Araújo/IdeaProjects/Base_Project2Share/src/graphical_model.txt")
+    println(cylinder2.getTranslateX)
 
-/*
     //oct1 - example of an Octree[Placement] that contains only one Node (i.e. cylinder1)
     //In case of difficulties to implement task T2 this octree can be used as input for tasks T3, T4 and T5
 
@@ -182,6 +181,8 @@ class Main extends Application {
     val sec1: Section = (((0.0,0.0,0.0), 4.0), List(cylinder1.asInstanceOf[Node]))
     val ocLeaf1 = OcLeaf(sec1)
     val oct1:Octree[Placement] = OcNode[Placement](placement1, ocLeaf1, OcEmpty, OcEmpty, OcEmpty, OcEmpty, OcEmpty, OcEmpty, OcEmpty)
+
+
 
     //example of bounding boxes (corresponding to the octree oct1) added manually to the world
     val b2 = new Box(8,8,8)
@@ -203,7 +204,7 @@ class Main extends Application {
     //adding boxes b2 and b3 to the world
     worldRoot.getChildren.add(b2)
     worldRoot.getChildren.add(b3)
-*/
+
   }
 
   override def init(): Unit = {
