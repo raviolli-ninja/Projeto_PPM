@@ -208,11 +208,14 @@ class Main extends Application {
 
     //T3
   def isContained(n1:Node) = {
-    if(n1.getBoundsInParent().intersects(cameraView.getLayoutBounds()) || cameraView.getLayoutBounds().contains(n1.getBoundsInParent()))
+    if(n1.getBoundsInParent().intersects(camVolume.getLayoutBounds()) || camVolume.getLayoutBounds().contains(n1.getBoundsInParent()))
       n1.setStyle("-fx-background-color: red;")
     else
       n1
   }
+
+
+
   }
 
 
