@@ -174,6 +174,7 @@ class Main extends Application {
     readFromFileToList("C:/Users/Paulo Araújo/IdeaProjects/Base_Project2Share/src/graphical_model.txt")
     println(cylinder2.getTranslateX)
 
+
     //oct1 - example of an Octree[Placement] that contains only one Node (i.e. cylinder1)
     //In case of difficulties to implement task T2 this octree can be used as input for tasks T3, T4 and T5
 
@@ -205,7 +206,16 @@ class Main extends Application {
     worldRoot.getChildren.add(b2)
     worldRoot.getChildren.add(b3)
 
+    //T3
+  def isContained(n1:Node) = {
+    if(n1.getBoundsInParent().intersects(cameraView.getLayoutBounds()) || cameraView.getLayoutBounds().contains(n1.getBoundsInParent()))
+      n1.setStyle("-fx-background-color: red;")
+    else
+      n1
   }
+  }
+
+
 
   override def init(): Unit = {
     println("init")
