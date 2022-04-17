@@ -130,11 +130,7 @@ class Main extends Application {
 
     val scene = new Scene(root, 810, 610, true, SceneAntialiasing.BALANCED)
 
-    //Mouse left click interaction
-    scene.setOnMouseClicked((event) => {
-      camVolume.setTranslateX(camVolume.getTranslateX + 2)
-      worldRoot.getChildren.removeAll()
-    })
+
 
 
     //setup and start the Stage
@@ -207,14 +203,37 @@ class Main extends Application {
     worldRoot.getChildren.add(b3)
 
     //T3
-  def isContained(n1:Node) = {
-    if(n1.getBoundsInParent().intersects(camVolume.getLayoutBounds()) || camVolume.getLayoutBounds().contains(n1.getBoundsInParent()))
-      n1.setStyle("-fx-background-color: red;")
-    else
-      n1
+  def isContained(n1:Node):Boolean = {
+    n1.getBoundsInParent().intersects(camVolume.getLayoutBounds()) || camVolume.getLayoutBounds().contains(n1.getBoundsInParent())
   }
 
 
+  def changeColor (tree:Octree[Placement]):Octree[Placement] = tree match {
+    case OcEmpty => tree
+    case OcLeaf(s:Section) => if (isContained(s._2(0))) OcLeaf(s._2.head.asInstanceOf[Shape3D].setMaterial(redMaterial)) else OcLeaf(s)
+    case OcNode(coords: Placement, up_00, up_01, up_10, up_11, down_00, down_01, down_10, down_11) =>
+      OcNode(coords, changeColor(up_00), changeColor(up_01), changeColor(up_10), changeColor(up_11),
+                     changeColor(down_00), changeColor(down_01), changeColor(down_10), changeColor(down_11))
+  }
+
+
+/*
+  def changeColor (tree:Octree[Any], f:Section => Section):Octree[Any] = {
+    def aux(tree:Octree[A]): Octree[A] = tree match {
+      case OcEmpty => tree
+      case OcLeaf(s:Section) => OcLeaf(f(s))
+      case OcNode(coords: A, up_00, up_01, up_10, up_11, down_00, down_01, down_10, down_11) =>
+        OcNode(coords, aux(up_00), aux(up_01), aux(up_10), aux(up_11), aux(down_00), aux(down_01), aux(down_10), aux(down_11))
+    }
+  }
+*/
+
+    //Mouse left click interaction
+    scene.setOnMouseClicked((event) => {
+      camVolume.setTranslateX(camVolume.getTranslateX + 2)
+      worldRoot.getChildren.removeAll()
+      changeColor(oct1)
+    })
 
   }
 
